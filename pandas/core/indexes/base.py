@@ -570,7 +570,7 @@ class Index(IndexOpsMixin, PandasObject):
 
         try:
             arr = sanitize_array(data, None, dtype=dtype, copy=copy)
-            print(f"sanitize_array received dtype: {dtype}")
+            #print(f"sanitize_array received dtype: {dtype}")
         except ValueError as err:
             if "index must be specified when data is not list-like" in str(err):
                 raise cls._raise_scalar_data_error(data) from err
