@@ -487,8 +487,13 @@ class TestIndex:
 
         assert index[[]].identical(empty_index)
         if dtype == np.bool_:
-            with pytest.raises(ValueError, match="length of the boolean indexer"):
+
+            if index.dtype.name == "string":
+                # `string[python]` allows empty boolean indexing
                 assert index[empty_arr].identical(empty_index)
+            else:
+                with pytest.raises(ValueError, match="length of the boolean indexer"):
+                    assert index[empty_arr].identical(empty_index)
         else:
             assert index[empty_arr].identical(empty_index)
 
