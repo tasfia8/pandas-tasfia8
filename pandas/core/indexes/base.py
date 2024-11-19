@@ -483,11 +483,15 @@ class Index(IndexOpsMixin, PandasObject):
         tupleize_cols: bool = True,
     ) -> Self:
         from pandas.core.indexes.range import RangeIndex
+        from pandas.core.arrays.string_ import StringDtype #Bug fix 60343
 
         name = maybe_extract_name(name, data, cls)
 
         if dtype is not None:
+            if dtype == "str": #Bug fix 60343
+                dtype = StringDtype(storage="python")
             dtype = pandas_dtype(dtype)
+        
 
         data_dtype = getattr(data, "dtype", None)
 
@@ -566,6 +570,7 @@ class Index(IndexOpsMixin, PandasObject):
 
         try:
             arr = sanitize_array(data, None, dtype=dtype, copy=copy)
+            print(f"sanitize_array received dtype: {dtype}")
         except ValueError as err:
             if "index must be specified when data is not list-like" in str(err):
                 raise cls._raise_scalar_data_error(data) from err

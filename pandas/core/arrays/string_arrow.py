@@ -5,6 +5,7 @@ import re
 from typing import (
     TYPE_CHECKING,
     Union,
+    KeysView, #Bug fix 60343 to handle dict_keys type explicitely
 )
 import warnings
 
@@ -185,12 +186,19 @@ class ArrowStringArray(ObjectStringArrayMixin, ArrowExtensionArray, BaseStringAr
         cls, scalars, *, dtype: Dtype | None = None, copy: bool = False
     ) -> Self:
         from pandas.core.arrays.masked import BaseMaskedArray
+        from pandas.core.arrays.string_ import StringDtype
 
         _chk_pyarrow_available()
 
-        if dtype and not (isinstance(dtype, str) and dtype == "string"):
-            dtype = pandas_dtype(dtype)
-            assert isinstance(dtype, StringDtype) and dtype.storage == "pyarrow"
+        # Handle explicit dtype "string" or "str" Bug fix 60343
+        if dtype:
+            if isinstance(dtype, str) and dtype == "str":
+            # Use StringDtype with Python storage explicitly
+                dtype = StringDtype(storage="python")
+            else:
+                dtype = pandas_dtype(dtype)
+                assert isinstance(dtype, StringDtype) and dtype.storage == "pyarrow"
+
 
         if isinstance(scalars, BaseMaskedArray):
             # avoid costly conversion to object dtype in ensure_string_array and
@@ -201,6 +209,11 @@ class ArrowStringArray(ObjectStringArrayMixin, ArrowExtensionArray, BaseStringAr
             return cls(pa.array(result, mask=na_values, type=pa.large_string()))
         elif isinstance(scalars, (pa.Array, pa.ChunkedArray)):
             return cls(pc.cast(scalars, pa.large_string()))
+
+
+        elif isinstance(scalars, KeysView): #Bug Fix 60343
+            #Convert dict_keys to a NumPy array. Note dict_keys is a type alias for KeysView.
+            scalars = list(scalars)
 
         # convert non-na-likes to str
         result = lib.ensure_string_array(scalars, copy=copy)

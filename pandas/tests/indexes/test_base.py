@@ -1721,3 +1721,20 @@ def test_is_monotonic_pyarrow_list_type():
     idx = Index([[1], [2, 3]], dtype=pd.ArrowDtype(pa.list_(pa.int64())))
     assert not idx.is_monotonic_increasing
     assert not idx.is_monotonic_decreasing
+
+def test_index_from_dict_keys_with_dtype():  # Bug fix 60343
+    d = {"a": 1, "b": 2}
+
+    # Test without dtype (default inference)
+    idx_no_dtype = pd.Index(d.keys())
+    expected_no_dtype = pd.Index(["a", "b"], dtype="object")
+    tm.assert_index_equal(idx_no_dtype, expected_no_dtype)
+
+    # Test with dtype="str"
+    idx_with_dtype = pd.Index(d.keys(), dtype="str")
+    expected_with_dtype = pd.Index(["a", "b"], dtype="string[python]")
+    tm.assert_index_equal(idx_with_dtype, expected_with_dtype)
+
+    # Ensure dtype inference still works
+    assert idx_no_dtype.dtype == "object"
+    assert idx_with_dtype.dtype == "string[python]"

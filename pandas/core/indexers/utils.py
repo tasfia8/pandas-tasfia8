@@ -10,6 +10,8 @@ from typing import (
 )
 
 import numpy as np
+import pandas as pd
+
 
 from pandas._libs import lib
 
@@ -534,6 +536,10 @@ def check_array_indexer(array: AnyArrayLike, indexer: Any) -> Any:
             indexer = indexer.to_numpy(dtype=bool, na_value=False)
         else:
             indexer = np.asarray(indexer, dtype=bool)
+        
+        # Allow empty boolean indexer for StringArray (string[python] dtype)
+        if len(indexer) == 0 and isinstance(array, pd.arrays.StringArray):
+            return indexer
 
         # GH26658
         if len(indexer) != len(array):

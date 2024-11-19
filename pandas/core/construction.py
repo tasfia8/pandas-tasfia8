@@ -11,6 +11,7 @@ from typing import (
     TYPE_CHECKING,
     cast,
     overload,
+    KeysView,
 )
 
 import numpy as np
@@ -596,6 +597,8 @@ def sanitize_array(
         # create an extension array from its dtype
         _sanitize_non_ordered(data)
         cls = dtype.construct_array_type()
+        if isinstance(data, KeysView):
+            data = list(data)
         subarr = cls._from_sequence(data, dtype=dtype, copy=copy)
 
     # GH#846
@@ -661,6 +664,15 @@ def sanitize_array(
         # at this point we should have dtype be None or subarr.dtype == dtype
         dtype = cast(np.dtype, dtype)
         subarr = _sanitize_str_dtypes(subarr, data, dtype, copy)
+    
+    from pandas.core.arrays.string_ import StringDtype
+    if dtype == "str": #Bug fix 60343
+        # Use StringDtype explicitly when dtype="str"
+        dtype = StringDtype(storage="python")
+    
+    if isinstance(data, KeysView): #Bug fix 60343
+        # Convert dict_keys to a list for processing
+        data = list(data)
 
     return subarr
 
