@@ -666,11 +666,11 @@ def sanitize_array(
         subarr = _sanitize_str_dtypes(subarr, data, dtype, copy)
     
     from pandas.core.arrays.string_ import StringDtype
-    if dtype == "str": #Bug fix 60343
+    if dtype == "str": #Bug fix
         # Use StringDtype explicitly when dtype="str"
         dtype = StringDtype(storage="python")
     
-    if isinstance(data, KeysView): #Bug fix 60343
+    if isinstance(data, KeysView): #Bug fix
         # Convert dict_keys to a list for processing
         data = list(data)
 

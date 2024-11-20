@@ -693,7 +693,7 @@ class TestIndex:
     def test_is_object(self, index, expected, using_infer_string):
         if using_infer_string and index.dtype == "string" and expected:
             expected = False
-        #Bug fix 60343
+        #Bug fix 
         if index.dtype.name == "string":
             assert not is_object_dtype(index)  # string[python] is not an object dtype
         elif index.dtype.name == "object":
@@ -1744,7 +1744,7 @@ def test_is_monotonic_pyarrow_list_type():
     assert not idx.is_monotonic_increasing
     assert not idx.is_monotonic_decreasing
 
-def test_index_from_dict_keys_with_dtype():  # Bug fix 60343
+def test_index_from_dict_keys_with_dtype():  # Bug fix
     d = {"a": 1, "b": 2}
 
     # Test without dtype (default inference)

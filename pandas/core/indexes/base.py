@@ -483,12 +483,12 @@ class Index(IndexOpsMixin, PandasObject):
         tupleize_cols: bool = True,
     ) -> Self:
         from pandas.core.indexes.range import RangeIndex
-        from pandas.core.arrays.string_ import StringDtype #Bug fix 60343
+        from pandas.core.arrays.string_ import StringDtype #Bug fix
 
         name = maybe_extract_name(name, data, cls)
 
         if dtype is not None:
-            if dtype == "str": #Bug fix 60343
+            if dtype == "str": #Bug fix
                 dtype = StringDtype(storage="python")
             dtype = pandas_dtype(dtype)
         
