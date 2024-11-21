@@ -212,7 +212,7 @@ class ArrowStringArray(ObjectStringArrayMixin, ArrowExtensionArray, BaseStringAr
 
 
         elif isinstance(scalars, KeysView): 
-            #Convert dict_keys to a NumPy array. Note dict_keys is a type alias for KeysView.
+            #Convert dict_keys to a NumPy array
             scalars = list(scalars)
 
         # convert non-na-likes to str
