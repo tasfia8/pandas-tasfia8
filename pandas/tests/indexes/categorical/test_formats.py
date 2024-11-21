@@ -101,7 +101,7 @@ class TestCategoricalIndexRepr:
                   'あ', 'いい', 'ううう', 'あ', 'いい', 'ううう', 'あ', 'いい',
                   'ううう', 'あ', 'いい', 'ううう', 'あ', 'いい', 'ううう'],
                  categories=['あ', 'いい', 'ううう'],
-                 ordered=False, dtype='category')"""
+                 ordered=False, dtype='category')"""""
 
             assert repr(idx) == expected
 
@@ -121,6 +121,6 @@ class TestCategoricalIndexRepr:
                   'お', 'か', 'き', 'く', 'け', 'こ',
                   'さ', 'し', 'す', 'せ', 'そ'],
                  categories=['あ', 'い', 'う', 'え', ..., 'し', 'す', 'せ', 'そ'],
-                 ordered=False, dtype='category')"""
+                 ordered=False, dtype='category')"""""
 
             assert repr(idx) == expected
