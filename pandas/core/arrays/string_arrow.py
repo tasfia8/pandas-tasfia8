@@ -1,12 +1,12 @@
 from __future__ import annotations
 
+from collections.abc import KeysView
 import operator
 import re
 from typing import (
     TYPE_CHECKING,
     Union,
 )
-from collections.abc import KeysView
 import warnings
 
 import numpy as np

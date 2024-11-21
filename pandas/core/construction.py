@@ -7,12 +7,12 @@ These should not depend on core.internals.
 
 from __future__ import annotations
 
+from collections.abc import KeysView
 from typing import (
     TYPE_CHECKING,
     cast,
     overload,
 )
-from collections.abc import KeysView
 
 import numpy as np
 from numpy import ma
