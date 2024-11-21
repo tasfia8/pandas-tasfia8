@@ -69,14 +69,13 @@ class TestIndex:
         arr = np.array(index)
         new_index = Index(arr)
         tm.assert_contains_all(arr, new_index)
-        
+
         if index.dtype.name == "string":
-        # Allow conversion to object when casting back through NumPy array
+            # Allow conversion to object when casting back through NumPy array
             assert new_index.dtype.name == "object"
             tm.assert_index_equal(index.astype("object"), new_index)
         else:
             tm.assert_index_equal(index, new_index)
-
 
     def test_constructor_copy(self, using_infer_string):
         index = Index(list("abc"), name="name")
@@ -486,7 +485,6 @@ class TestIndex:
 
         assert index[[]].identical(empty_index)
         if dtype == np.bool_:
-
             if index.dtype.name == "string":
                 # `string[python]` allows empty boolean indexing
                 assert index[empty_arr].identical(empty_index)
@@ -692,16 +690,17 @@ class TestIndex:
     def test_is_object(self, index, expected, using_infer_string):
         if using_infer_string and index.dtype == "string" and expected:
             expected = False
-        #Bug fix 
+        # Bug fix
         if index.dtype.name == "string":
             assert not is_object_dtype(index)  # string[python] is not an object dtype
         elif index.dtype.name == "object":
             # Ensure object dtype behaves as expected
-            assert index.dtype.name == "object", "Index with dtype='object' should be recognized as such"
+            assert (
+                index.dtype.name == "object"
+            ), "Index with dtype='object' should be recognized as such"
         else:
             # For other dtypes, use the expected value
             assert is_object_dtype(index) is expected
-
 
     def test_summary(self, index):
         index._summary()
@@ -1743,7 +1742,8 @@ def test_is_monotonic_pyarrow_list_type():
     assert not idx.is_monotonic_increasing
     assert not idx.is_monotonic_decreasing
 
-def test_index_from_dict_keys_with_dtype():  
+
+def test_index_from_dict_keys_with_dtype():
     d = {"a": 1, "b": 2}
 
     # Test without dtype (default inference)

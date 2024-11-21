@@ -5,8 +5,8 @@ import re
 from typing import (
     TYPE_CHECKING,
     Union,
-    KeysView,
 )
+from collections.abc import KeysView
 import warnings
 
 import numpy as np
@@ -193,12 +193,11 @@ class ArrowStringArray(ObjectStringArrayMixin, ArrowExtensionArray, BaseStringAr
         # handle explicit dtype "string" or "str"
         if dtype:
             if isinstance(dtype, str) and dtype == "str":
-            # Use StringDtype with Python storage explicitly
+                # Use StringDtype with Python storage explicitly
                 dtype = StringDtype(storage="python")
             else:
                 dtype = pandas_dtype(dtype)
                 assert isinstance(dtype, StringDtype) and dtype.storage == "pyarrow"
-
 
         if isinstance(scalars, BaseMaskedArray):
             # avoid costly conversion to object dtype in ensure_string_array and
@@ -210,9 +209,8 @@ class ArrowStringArray(ObjectStringArrayMixin, ArrowExtensionArray, BaseStringAr
         elif isinstance(scalars, (pa.Array, pa.ChunkedArray)):
             return cls(pc.cast(scalars, pa.large_string()))
 
-
-        elif isinstance(scalars, KeysView): 
-            #Convert dict_keys to a NumPy array
+        elif isinstance(scalars, KeysView):
+            # Convert dict_keys to a NumPy array
             scalars = list(scalars)
 
         # convert non-na-likes to str

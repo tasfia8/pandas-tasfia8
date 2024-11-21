@@ -11,8 +11,8 @@ from typing import (
     TYPE_CHECKING,
     cast,
     overload,
-    KeysView,
 )
+from collections.abc import KeysView
 
 import numpy as np
 from numpy import ma
@@ -664,13 +664,14 @@ def sanitize_array(
         # at this point we should have dtype be None or subarr.dtype == dtype
         dtype = cast(np.dtype, dtype)
         subarr = _sanitize_str_dtypes(subarr, data, dtype, copy)
-    
+
     from pandas.core.arrays.string_ import StringDtype
-    if dtype == "str": 
+
+    if dtype == "str":
         # Use StringDtype explicitly when dtype="str"
         dtype = StringDtype(storage="python")
-    
-    if isinstance(data, KeysView): 
+
+    if isinstance(data, KeysView):
         # Convert dict_keys to a list for processing
         data = list(data)
 

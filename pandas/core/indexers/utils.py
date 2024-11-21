@@ -10,8 +10,6 @@ from typing import (
 )
 
 import numpy as np
-import pandas as pd
-
 
 from pandas._libs import lib
 
@@ -27,6 +25,8 @@ from pandas.core.dtypes.generic import (
     ABCIndex,
     ABCSeries,
 )
+
+import pandas as pd
 
 if TYPE_CHECKING:
     from pandas._typing import AnyArrayLike
@@ -536,7 +536,7 @@ def check_array_indexer(array: AnyArrayLike, indexer: Any) -> Any:
             indexer = indexer.to_numpy(dtype=bool, na_value=False)
         else:
             indexer = np.asarray(indexer, dtype=bool)
-        
+
         # Allow empty boolean indexer for StringArray (string[python] dtype)
         if len(indexer) == 0 and isinstance(array, pd.arrays.StringArray):
             return indexer
