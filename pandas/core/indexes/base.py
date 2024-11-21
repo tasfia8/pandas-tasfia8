@@ -488,9 +488,10 @@ class Index(IndexOpsMixin, PandasObject):
         name = maybe_extract_name(name, data, cls)
 
         if dtype is not None:
-            if dtype == "str":
+            if dtype == "str" and not isinstance(dtype, StringDtype):
                 dtype = StringDtype(storage="python")
-            dtype = pandas_dtype(dtype)
+            else:
+                dtype = pandas_dtype(dtype)
 
         data_dtype = getattr(data, "dtype", None)
 
@@ -569,7 +570,6 @@ class Index(IndexOpsMixin, PandasObject):
 
         try:
             arr = sanitize_array(data, None, dtype=dtype, copy=copy)
-            # print(f"sanitize_array received dtype: {dtype}")
         except ValueError as err:
             if "index must be specified when data is not list-like" in str(err):
                 raise cls._raise_scalar_data_error(data) from err
