@@ -110,7 +110,7 @@ SAS provides ``PROC IMPORT`` to read csv data into a data set.
 The pandas method is :func:`read_csv`, which works similarly.
 
 .. ipython:: python
-
+   import pandas as pd
    url = (
        "https://raw.githubusercontent.com/pandas-dev/"
        "pandas/main/pandas/tests/io/data/csv/tips.csv"
@@ -523,7 +523,7 @@ the first entry for each.
 In pandas this would be written as:
 
 .. ipython:: python
-
+   import pandas as pd
    tips.groupby(["sex", "smoker"]).first()
 
 

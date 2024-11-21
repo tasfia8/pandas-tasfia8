@@ -3,7 +3,7 @@ data does not have to be sorted ahead of time, and different join types are acco
 ``how`` keyword.
 
 .. ipython:: python
-
+   import pandas as pd
    inner_join = df1.merge(df2, on=["key"], how="inner")
    inner_join
 

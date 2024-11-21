@@ -2,7 +2,7 @@ pandas provides a :ref:`groupby.transform` mechanism that allows these type of o
 succinctly expressed in one operation.
 
 .. ipython:: python
-
+   import pandas as pd
    gb = tips.groupby("smoker")["total_bill"]
    tips["adj_total_bill"] = tips["total_bill"] - gb.transform("mean")
    tips

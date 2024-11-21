@@ -98,7 +98,7 @@ dataset from the pandas tests, which is a CSV file. In Excel, you would download
 In pandas, you pass the URL or local path of the CSV file to :func:`~pandas.read_csv`:
 
 .. ipython:: python
-
+   import pandas as pd
    url = (
        "https://raw.githubusercontent.com/pandas-dev"
        "/pandas/main/pandas/tests/io/data/csv/tips.csv"
@@ -379,7 +379,7 @@ entering the first two or three values and then dragging.
 This can be achieved by creating a series and assigning it to the desired cells.
 
 .. ipython:: python
-
+    import pandas as pd
     df = pd.DataFrame({"AAA": [1] * 8, "BBB": list(range(0, 8))})
     df
 
@@ -397,7 +397,7 @@ Excel has built-in functionality for `removing duplicate values <https://support
 This is supported in pandas via :meth:`~DataFrame.drop_duplicates`.
 
 .. ipython:: python
-
+    import pandas as pd
     df = pd.DataFrame(
         {
             "class": ["A", "A", "A", "B", "C", "D"],
@@ -426,7 +426,7 @@ In Excel, we use the following configuration for the PivotTable:
 The equivalent in pandas:
 
 .. ipython:: python
-
+    import pandas as pd
     pd.pivot_table(
         tips, values="tip", index=["size"], columns=["sex"], aggfunc=np.average
     )
@@ -438,7 +438,7 @@ Adding a row
 Assuming we are using a :class:`~pandas.RangeIndex` (numbered ``0``, ``1``, etc.), we can use :func:`concat` to add a row to the bottom of a ``DataFrame``.
 
 .. ipython:: python
-
+    import pandas as pd
     df
     new_row = pd.DataFrame([["E", 51, True]],
                            columns=["class", "student_count", "all_pass"])
@@ -453,7 +453,7 @@ takes you to cells that match, one by one. In pandas, this operation is generall
 entire column or ``DataFrame`` at once through :ref:`conditional expressions <10min_tut_03_subset.rows_and_columns>`.
 
 .. ipython:: python
-
+    import pandas as pd
     tips
     tips == "Sun"
     tips["day"].str.contains("S")
@@ -461,5 +461,5 @@ entire column or ``DataFrame`` at once through :ref:`conditional expressions <10
 pandas' :meth:`~DataFrame.replace` is comparable to Excel's ``Replace All``.
 
 .. ipython:: python
-
+    import pandas as pd
     tips.replace("Thu", "Thursday")

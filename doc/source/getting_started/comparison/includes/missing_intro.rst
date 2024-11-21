@@ -3,7 +3,7 @@ semantics are the same; for example missing data propagates through numeric oper
 ignored by default for aggregations.
 
 .. ipython:: python
-
+   import pandas as pd
    outer_join
    outer_join["value_x"] + outer_join["value_y"]
    outer_join["value_x"].sum()

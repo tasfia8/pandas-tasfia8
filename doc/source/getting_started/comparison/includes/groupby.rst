@@ -2,6 +2,6 @@ pandas provides a flexible ``groupby`` mechanism that allows similar aggregation
 :ref:`groupby documentation<groupby>` for more details and examples.
 
 .. ipython:: python
-
+   import pandas as pd
    tips_summed = tips.groupby(["sex", "smoker"])[["total_bill", "tip"]].sum()
    tips_summed

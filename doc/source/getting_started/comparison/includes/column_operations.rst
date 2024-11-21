@@ -3,7 +3,7 @@ pandas provides vectorized operations by specifying the individual ``Series`` in
 a column from the ``DataFrame``.
 
 .. ipython:: python
-
+   import pandas as pd
    tips["total_bill"] = tips["total_bill"] - 2
    tips["new_bill"] = tips["total_bill"] / 2
    tips

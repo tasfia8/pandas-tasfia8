@@ -2,7 +2,7 @@ The equivalent pandas methods are :meth:`Series.str.upper`, :meth:`Series.str.lo
 :meth:`Series.str.title`.
 
 .. ipython:: python
-
+   import pandas as pd
    firstlast = pd.DataFrame({"string": ["John Smith", "Jane Cook"]})
    firstlast["upper"] = firstlast["string"].str.upper()
    firstlast["lower"] = firstlast["string"].str.lower()

@@ -3,5 +3,5 @@ This can be overridden by :ref:`changing the pandas options <options>`, or using
 :meth:`DataFrame.head` or :meth:`DataFrame.tail`.
 
 .. ipython:: python
-
+   import pandas as pd
    tips.head(5)

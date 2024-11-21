@@ -15,7 +15,7 @@ the data into a DataFrame called ``tips`` and assume we have a database table of
 structure.
 
 .. ipython:: python
-
+    import pandas as pd
     url = (
         "https://raw.githubusercontent.com/pandas-dev"
         "/pandas/main/pandas/tests/io/data/csv/tips.csv"
@@ -43,7 +43,7 @@ to select all columns):
 With pandas, column selection is done by passing a list of column names to your DataFrame:
 
 .. ipython:: python
-
+    import pandas as pd
     tips[["total_bill", "tip", "smoker", "time"]]
 
 Calling the DataFrame without the list of column names would display all columns (akin to SQL's
@@ -59,7 +59,7 @@ In SQL, you can add a calculated column:
 With pandas, you can use the :meth:`DataFrame.assign` method of a DataFrame to append a new column:
 
 .. ipython:: python
-
+    import pandas as pd
     tips.assign(tip_rate=tips["tip"] / tips["total_bill"])
 
 WHERE
@@ -86,7 +86,7 @@ Tips of more than $5 at Dinner meals:
     WHERE time = 'Dinner' AND tip > 5.00;
 
 .. ipython:: python
-
+    import pandas as pd
     tips[(tips["time"] == "Dinner") & (tips["tip"] > 5.00)]
 
 Tips by parties of at least 5 diners OR bill total was more than $45:
@@ -98,14 +98,14 @@ Tips by parties of at least 5 diners OR bill total was more than $45:
     WHERE size >= 5 OR total_bill > 45;
 
 .. ipython:: python
-
+    import pandas as pd
     tips[(tips["size"] >= 5) | (tips["total_bill"] > 45)]
 
 NULL checking is done using the :meth:`~pandas.Series.notna` and :meth:`~pandas.Series.isna`
 methods.
 
 .. ipython:: python
-
+    import pandas as pd
     frame = pd.DataFrame(
         {"col1": ["A", "B", np.nan, "C", "D"], "col2": ["F", np.nan, "G", "H", "I"]}
     )
@@ -133,7 +133,7 @@ Getting items where ``col1`` IS NOT NULL can be done with :meth:`~pandas.Series.
     WHERE col1 IS NOT NULL;
 
 .. ipython:: python
-
+    import pandas as pd
     frame[frame["col1"].notna()]
 
 
@@ -170,14 +170,14 @@ Notice that in the pandas code we used :meth:`.DataFrameGroupBy.size` and not
 the number of ``NOT NULL`` records within each.
 
 .. ipython:: python
-
+    import pandas as pd
     tips.groupby("sex").count()
 
 Alternatively, we could have applied the :meth:`.DataFrameGroupBy.count` method
 to an individual column:
 
 .. ipython:: python
-
+    import pandas as pd
     tips.groupby("sex")["total_bill"].count()
 
 Multiple functions can also be applied at once. For instance, say we'd like to see how tip amount
@@ -197,7 +197,7 @@ to your grouped DataFrame, indicating which functions to apply to specific colum
     */
 
 .. ipython:: python
-
+    import pandas as pd
     tips.groupby("day").agg({"tip": "mean", "day": "size"})
 
 Grouping by more than one column is done by passing a list of columns to the
@@ -221,7 +221,7 @@ Grouping by more than one column is done by passing a list of columns to the
     */
 
 .. ipython:: python
-
+    import pandas as pd
     tips.groupby(["smoker", "day"]).agg({"tip": ["size", "mean"]})
 
 .. _compare_with_sql.join:
@@ -240,7 +240,7 @@ parameters allowing you to specify the type of join to perform (``LEFT``, ``RIGH
     join behaviour and can lead to unexpected results.
 
 .. ipython:: python
-
+    import pandas as pd
     df1 = pd.DataFrame({"key": ["A", "B", "C", "D"], "value": np.random.randn(4)})
     df2 = pd.DataFrame({"key": ["B", "D", "D", "E"], "value": np.random.randn(4)})
 
@@ -258,7 +258,7 @@ INNER JOIN
       ON df1.key = df2.key;
 
 .. ipython:: python
-
+    import pandas as pd
     # merge performs an INNER JOIN by default
     pd.merge(df1, df2, on="key")
 
@@ -266,7 +266,7 @@ INNER JOIN
 column with another DataFrame's index.
 
 .. ipython:: python
-
+    import pandas as pd
     indexed_df2 = df2.set_index("key")
     pd.merge(df1, indexed_df2, left_on="key", right_index=True)
 
@@ -283,7 +283,7 @@ Show all records from ``df1``.
       ON df1.key = df2.key;
 
 .. ipython:: python
-
+    import pandas as pd
     pd.merge(df1, df2, on="key", how="left")
 
 RIGHT JOIN
@@ -299,7 +299,7 @@ Show all records from ``df2``.
       ON df1.key = df2.key;
 
 .. ipython:: python
-
+    import pandas as pd
     pd.merge(df1, df2, on="key", how="right")
 
 FULL JOIN
@@ -327,7 +327,7 @@ UNION
 ``UNION ALL`` can be performed using :meth:`~pandas.concat`.
 
 .. ipython:: python
-
+    import pandas as pd
     df1 = pd.DataFrame(
         {"city": ["Chicago", "San Francisco", "New York City"], "rank": range(1, 4)}
     )
@@ -353,7 +353,7 @@ UNION
     */
 
 .. ipython:: python
-
+    import pandas as pd
     pd.concat([df1, df2])
 
 SQL's ``UNION`` is similar to ``UNION ALL``, however ``UNION`` will remove duplicate rows.
@@ -379,7 +379,7 @@ In pandas, you can use :meth:`~pandas.concat` in conjunction with
 :meth:`~pandas.DataFrame.drop_duplicates`.
 
 .. ipython:: python
-
+    import pandas as pd
     pd.concat([df1, df2]).drop_duplicates()
 
 
@@ -392,7 +392,7 @@ LIMIT
     LIMIT 10;
 
 .. ipython:: python
-
+    import pandas as pd
     tips.head(10)
 
 
@@ -410,7 +410,7 @@ Top n rows with offset
     LIMIT 10 OFFSET 5;
 
 .. ipython:: python
-
+    import pandas as pd
     tips.nlargest(10 + 5, columns="tip").tail(10)
 
 Top n rows per group
@@ -430,7 +430,7 @@ Top n rows per group
 
 
 .. ipython:: python
-
+    import pandas as pd
     (
         tips.assign(
             rn=tips.sort_values(["total_bill"], ascending=False)
@@ -445,7 +445,7 @@ Top n rows per group
 the same using ``rank(method='first')`` function
 
 .. ipython:: python
-
+    import pandas as pd
     (
         tips.assign(
             rnk=tips.groupby(["day"])["total_bill"].rank(
@@ -475,7 +475,7 @@ Notice that when using ``rank(method='min')`` function
 (as Oracle's ``RANK()`` function)
 
 .. ipython:: python
-
+    import pandas as pd
     (
         tips[tips["tip"] < 2]
         .assign(rnk_min=tips.groupby(["sex"])["tip"].rank(method="min"))
@@ -494,7 +494,7 @@ UPDATE
     WHERE tip < 2;
 
 .. ipython:: python
-
+    import pandas as pd
     tips.loc[tips["tip"] < 2, "tip"] *= 2
 
 DELETE
@@ -508,5 +508,5 @@ DELETE
 In pandas we select the rows that should remain instead of deleting the rows that should be removed:
 
 .. ipython:: python
-
+    import pandas as pd
     tips = tips.loc[tips["tip"] <= 9]

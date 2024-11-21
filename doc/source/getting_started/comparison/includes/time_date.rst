@@ -1,5 +1,5 @@
 .. ipython:: python
-
+   import pandas as pd
    tips["date1"] = pd.Timestamp("2013-01-15")
    tips["date2"] = pd.Timestamp("2015-02-15")
    tips["date1_year"] = tips["date1"].dt.year
@@ -15,7 +15,7 @@
 
 .. ipython:: python
    :suppress:
-
+   import pandas as pd
    tips = tips.drop(
        ["date1", "date2", "date1_year", "date2_month", "date1_next", "months_between"],
        axis=1,

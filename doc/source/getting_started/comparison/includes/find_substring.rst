@@ -4,5 +4,5 @@ method returns its position. If not found, it returns ``-1``. Keep in mind that 
 zero-based.
 
 .. ipython:: python
-
+   import pandas as pd
    tips["sex"].str.find("ale")

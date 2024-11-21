@@ -1,7 +1,7 @@
 In pandas, :meth:`Series.isna` and :meth:`Series.notna` can be used to filter the rows.
 
 .. ipython:: python
-
+   import pandas as pd
    outer_join[outer_join["value_x"].isna()]
    outer_join[outer_join["value_x"].notna()]
 
@@ -11,14 +11,14 @@ Drop rows with missing values
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. ipython:: python
-
+   import pandas as pd
    outer_join.dropna()
 
 Forward fill from previous rows
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. ipython:: python
-
+   import pandas as pd
    outer_join.ffill()
 
 Replace missing values with a specified value
@@ -27,5 +27,5 @@ Replace missing values with a specified value
 Using the mean:
 
 .. ipython:: python
-
+   import pandas as pd
    outer_join["value_x"].fillna(outer_join["value_x"].mean())
