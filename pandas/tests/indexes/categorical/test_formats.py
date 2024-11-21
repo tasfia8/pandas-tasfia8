@@ -52,8 +52,8 @@ class TestCategoricalIndexRepr:
         # multiple lines
         idx = CategoricalIndex(["あ", "いい", "ううう"] * 10)
         expected = """CategoricalIndex(['あ', 'いい', 'ううう', 'あ', 'いい',
-                  'ううう', 'あ', 'いい', 'ううう', 'あ', 'いい', 'ううう', 'あ', 'いい',
-                    'ううう', 'あ', 'いい', 'ううう', 'あ', 'いい',
+                  'ううう', 'あ', 'いい', 'ううう', 'あ', 'いい', 'ううう', 'あ', 
+                  'いい','ううう', 'あ', 'いい', 'ううう', 'あ', 'いい',
                   'ううう', 'あ', 'いい', 'ううう', 'あ',
                   'いい', 'ううう', 'あ', 'いい', 'ううう'],
                  categories=['あ', 'いい', 'ううう'],
@@ -63,7 +63,8 @@ class TestCategoricalIndexRepr:
 
         # truncated
         idx = CategoricalIndex(["あ", "いい", "ううう"] * 100)
-        expected = """CategoricalIndex(['あ', 'いい', 'ううう', 'あ', 'いい', 'ううう', 'あ', 'いい', 'ううう', 'あ',
+        expected = """CategoricalIndex(['あ', 'いい', 'ううう', 'あ', 'いい', 
+                  'ううう', 'あ', 'いい', 'ううう', 'あ',
                   ...
                   'ううう', 'あ', 'いい', 'ううう', 'あ', 'いい', 'ううう', 'あ',
                   'いい', 'ううう'],
@@ -73,9 +74,10 @@ class TestCategoricalIndexRepr:
 
         # larger categories
         idx = CategoricalIndex(list("あいうえおかきくけこさしすせそ"))
-        expected = """CategoricalIndex(['あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ', 'さ', 'し',
-                  'す', 'せ', 'そ'],
-                 categories=['あ', 'い', 'う', 'え', ..., 'し', 'す', 'せ', 'そ'], ordered=False, dtype='category')"""
+        expected = """CategoricalIndex(['あ', 'い', 'う', 'え', 'お', 'か', 'き', 
+                  'く', 'け', 'こ', 'さ', 'し','す', 'せ', 'そ'],
+                 categories=['あ', 'い', 'う', 'え', ..., 'し', 'す', 'せ', 'そ']
+                 , ordered=False, dtype='category')"""
 
         assert repr(idx) == expected
 
@@ -83,7 +85,8 @@ class TestCategoricalIndexRepr:
         with cf.option_context("display.unicode.east_asian_width", True):
             # short
             idx = CategoricalIndex(["あ", "いい", "ううう"])
-            expected = """CategoricalIndex(['あ', 'いい', 'ううう'], categories=['あ', 'いい', 'ううう'], ordered=False, dtype='category')"""  # noqa: E501
+            expected = """CategoricalIndex(['あ', 'いい', 'ううう'], 
+            categories=['あ', 'いい', 'ううう'], ordered=False, dtype='category')""" 
             assert repr(idx) == expected
 
             # multiple lines
@@ -92,7 +95,8 @@ class TestCategoricalIndexRepr:
                   'ううう', 'あ', 'いい', 'ううう', 'あ', 'いい', 'ううう',
                   'あ', 'いい', 'ううう', 'あ', 'いい', 'ううう', 'あ', 'いい',
                   'ううう', 'あ', 'いい', 'ううう', 'あ', 'いい', 'ううう'],
-                 categories=['あ', 'いい', 'ううう'], ordered=False, dtype='category')"""
+                 categories=['あ', 'いい', 'ううう'], 
+                 ordered=False, dtype='category')"""
 
             assert repr(idx) == expected
 
@@ -101,16 +105,18 @@ class TestCategoricalIndexRepr:
             expected = """CategoricalIndex(['あ', 'いい', 'ううう', 'あ', 'いい', 'ううう', 'あ', 'いい',
                   'ううう', 'あ',
                   ...
-                  'ううう', 'あ', 'いい', 'ううう', 'あ', 'いい', 'ううう',
-                  'あ', 'いい', 'ううう'],
+                  'ううう', 'あ', 'いい', 'ううう', 'あ', 'いい', 'ううう'
+                  ,'あ', 'いい', 'ううう'],
                  categories=['あ', 'いい', 'ううう'], ordered=False, dtype='category', length=300)"""
 
             assert repr(idx) == expected
 
             # larger categories
             idx = CategoricalIndex(list("あいうえおかきくけこさしすせそ"))
-            expected = """CategoricalIndex(['あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ',
+            expected = """CategoricalIndex(['あ', 'い', 'う', 'え',
+                  'お', 'か', 'き', 'く', 'け', 'こ',
                   'さ', 'し', 'す', 'せ', 'そ'],
-                 categories=['あ', 'い', 'う', 'え', ..., 'し', 'す', 'せ', 'そ'], ordered=False, dtype='category')"""
+                 categories=['あ', 'い', 'う', 'え', ..., 'し', 'す', 'せ', 'そ'], 
+                 ordered=False, dtype='category')"""
 
             assert repr(idx) == expected
