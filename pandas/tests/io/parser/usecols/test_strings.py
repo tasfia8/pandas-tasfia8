@@ -79,7 +79,7 @@ def test_usecols_with_multi_byte_characters(all_parsers):
     data = """あああ,いい,ううう,ええええ
 0.056674973,8,True,a
 2.613230982,2,False,b
-3.568935038,7,False,a"""e,a"""
+3.568935038,7,False,a"""
     parser = all_parsers
 
     exp_data = {
