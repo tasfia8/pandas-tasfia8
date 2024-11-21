@@ -1747,13 +1747,13 @@ def test_index_from_dict_keys_with_dtype():
     d = {"a": 1, "b": 2}
 
     # Test without dtype (default inference)
-    idx_no_dtype = pd.Index(d.keys())
-    expected_no_dtype = pd.Index(["a", "b"], dtype="object")
+    idx_no_dtype = Index(d.keys())
+    expected_no_dtype = Index(["a", "b"], dtype="object")
     tm.assert_index_equal(idx_no_dtype, expected_no_dtype)
 
     # Test with dtype="str"
-    idx_with_dtype = pd.Index(d.keys(), dtype="str")
-    expected_with_dtype = pd.Index(["a", "b"], dtype="string[python]")
+    idx_with_dtype = Index(d.keys(), dtype="str")
+    expected_with_dtype = Index(["a", "b"], dtype="string[python]")
     tm.assert_index_equal(idx_with_dtype, expected_with_dtype)
 
     # Ensure dtype inference still works
