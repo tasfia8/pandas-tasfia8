@@ -190,7 +190,7 @@ class ArrowStringArray(ObjectStringArrayMixin, ArrowExtensionArray, BaseStringAr
 
         _chk_pyarrow_available()
 
-        # Bug fix handle explicit dtype "string" or "str"
+        # handle explicit dtype "string" or "str"
         if dtype:
             if isinstance(dtype, str) and dtype == "str":
             # Use StringDtype with Python storage explicitly
@@ -211,7 +211,7 @@ class ArrowStringArray(ObjectStringArrayMixin, ArrowExtensionArray, BaseStringAr
             return cls(pc.cast(scalars, pa.large_string()))
 
 
-        elif isinstance(scalars, KeysView): #Bug Fix
+        elif isinstance(scalars, KeysView): 
             #Convert dict_keys to a NumPy array. Note dict_keys is a type alias for KeysView.
             scalars = list(scalars)
 

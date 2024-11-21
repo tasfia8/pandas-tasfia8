@@ -69,7 +69,6 @@ class TestIndex:
         arr = np.array(index)
         new_index = Index(arr)
         tm.assert_contains_all(arr, new_index)
-        #tm.assert_index_equal(index, new_index)
         
         if index.dtype.name == "string":
         # Allow conversion to object when casting back through NumPy array
@@ -1744,7 +1743,7 @@ def test_is_monotonic_pyarrow_list_type():
     assert not idx.is_monotonic_increasing
     assert not idx.is_monotonic_decreasing
 
-def test_index_from_dict_keys_with_dtype():  # Bug fix
+def test_index_from_dict_keys_with_dtype():  
     d = {"a": 1, "b": 2}
 
     # Test without dtype (default inference)
