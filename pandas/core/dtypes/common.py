@@ -179,13 +179,7 @@ def is_object_dtype(arr_or_dtype) -> bool:
     >>> is_object_dtype([1, 2, 3])
     False
     """
-    from pandas.core.arrays.string_ import StringDtype
-
-    return (
-        isinstance(arr_or_dtype, np.dtype)
-        and arr_or_dtype == "object"
-        or isinstance(arr_or_dtype, StringDtype)
-    )
+    return _is_dtype_type(arr_or_dtype, classes(np.object_))
 
 
 def is_sparse(arr) -> bool:

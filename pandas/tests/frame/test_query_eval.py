@@ -160,15 +160,11 @@ class TestDataFrameEval:
             df.query("")
 
     def test_query_duplicate_column_name(self, engine, parser):
-        df = DataFrame(
-            {
-                "A": range(3),
-                "B": range(3),
-                "C": range(3)
-            }
-        ).rename(columns={"B": "A"})
+        df = DataFrame({"A": range(3), "B": range(3), "C": range(3)}).rename(
+            columns={"B": "A"}
+        )
 
-        res = df.query('C == 1', engine=engine, parser=parser)
+        res = df.query("C == 1", engine=engine, parser=parser)
 
         expect = DataFrame([[1, 1, 1]], columns=["A", "A", "C"], index=[1])
 
